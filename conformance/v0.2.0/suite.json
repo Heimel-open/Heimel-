@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "heimel_release_target": "v0.2.0",
+  "conformance_protocol": "2.0",
+  "decision_domain": [
+    "ALLOW",
+    "DENY",
+    "ESCALATE"
+  ],
+  "result_status_domain": [
+    "PASS",
+    "FAIL",
+    "INDETERMINATE"
+  ],
+  "modes": [
+    "single",
+    "sequence",
+    "concurrent",
+    "recovery"
+  ],
+  "stopgate_groups": [
+    "freshness",
+    "effect_binding",
+    "no_direct_effect_path",
+    "replay_one_shot",
+    "evidence"
+  ],
+  "vector_files": [
+    "vectors/baseline.json",
+    "vectors/freshness.json",
+    "vectors/effect_binding.json",
+    "vectors/replay_one_shot.json",
+    "vectors/no_direct_effect_path.json",
+    "vectors/evidence.json",
+    "vectors/unknown_required.json",
+    "vectors/delegation.json",
+    "vectors/actor_binding.json",
+    "vectors/concurrency.json",
+    "vectors/recovery.json",
+    "vectors/escalate.json"
+  ]
+}
