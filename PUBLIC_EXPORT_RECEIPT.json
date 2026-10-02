@@ -1,8 +1,12 @@
 {
   "schema_version": 2,
-  "status": "NOT_ATTESTED",
-  "source_commitment": null,
-  "release_manifest_sha256": null,
-  "public_payload_root_sha256": null,
-  "attestation": null
+  "status": "ATTESTED",
+  "source_commitment": "db9e7f87a844afb378eb9b8ec5772439d8a83cfed8436910e75931d2b56c0739",
+  "release_manifest_sha256": "b253f5ce810567628a76e0bd2eabb3dff9b90104d927ab77cd87edad7fd55ddf",
+  "public_payload_root_sha256": "b66e5614b2790b2197e63b846a1cef6ed6b78a97843199664e7f78945adacadd",
+  "attestation": {
+    "algorithm": "RSA-SHA256",
+    "public_key_path": "attestation/release-public-key.pem",
+    "signature_path": "attestation/release.sig"
+  }
 }
