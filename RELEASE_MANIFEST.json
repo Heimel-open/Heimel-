@@ -1,8 +1,16 @@
 {
   "schema_version": 2,
-  "release_version": "0.1.0-public-draft.1",
-  "status": "RELEASE_CANDIDATE",
+  "release_version": "0.2.0-public-draft.1",
+  "status": "PUBLIC_DRAFT",
   "files": [
+    {
+      "path": "conformance/CONTRACT.txt",
+      "sha256": "e59ddec94c04af2a00e64a577370e851be539a798d5218d77777557c054b32ea"
+    },
+    {
+      "path": "conformance/v0.1.0/test-vectors.json",
+      "sha256": "094d1dae71a1a52f143aa06b9842cb59ab38747f72b50484f0bc8878fe20fd72"
+    },
     {
       "path": "spec/CONSEQUENCE_LOOP.txt",
       "sha256": "7528cc8a35977f33a53f4c5a60b862aa1d0e173a4dc45cbf313135a296bac8e6"
@@ -24,7 +32,7 @@
       "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
     }
   ],
-  "root_digest": "b66e5614b2790b2197e63b846a1cef6ed6b78a97843199664e7f78945adacadd",
+  "root_digest": "3944b9ab57d46ad831f37e89a4362eabc4edb68b81a6317391ea3a0efe2c64f8",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
