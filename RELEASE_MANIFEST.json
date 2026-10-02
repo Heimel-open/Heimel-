@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "conformance/CONTRACT.txt",
-      "sha256": "e59ddec94c04af2a00e64a577370e851be539a798d5218d77777557c054b32ea"
+      "sha256": "f31846cb4be597726ce07bf12bd48d89f39b906af36f08ff2857e8f9737fc02e"
     },
     {
       "path": "conformance/test_run_conformance.py",
@@ -14,6 +14,38 @@
     {
       "path": "conformance/v0.1.0/test-vectors.json",
       "sha256": "094d1dae71a1a52f143aa06b9842cb59ab38747f72b50484f0bc8878fe20fd72"
+    },
+    {
+      "path": "conformance/v0.2.0/suite.json",
+      "sha256": "ca9508ee1da094ff149caaa93b90c7b898e305bd60a8e6f16b48a71825c42962"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/baseline.json",
+      "sha256": "81fa4e7a89c923e7040bc1a825a43a4975f9998f9401180727d8bf22b0b13f56"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/freshness.json",
+      "sha256": "479886a5ed22aae0cab0002685aee1d9a1e25bea0f97e42fac3dde75363e8c6a"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/effect_binding.json",
+      "sha256": "26048b6e90ef32f10b5c7b522de4b8ce352b52941e74a94d0fd4175e2b27be6f"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/lifecycle.json",
+      "sha256": "e36181105a9af443f071d83fc7f83cf3afa464ebee81f9cf95cf5c697942a0cb"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/evidence_unknown.json",
+      "sha256": "42efcf136f83f8cb1fc0679e2d97ae4b09ceeb22fab7546a8e9f89b14f8048a4"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/delegation_actor.json",
+      "sha256": "8c00d1b78d99442ad3a77b9a557672672c28b2f08a8236b364ae95a4c6ea2f31"
+    },
+    {
+      "path": "conformance/v0.2.0/vectors/runtime_adversarial.json",
+      "sha256": "a89bbd28232ddd86c066e04a4a0b7c5e27917cdccdb4d3655cab1dba8ddea997"
     },
     {
       "path": "spec/CONSEQUENCE_LOOP.txt",
@@ -36,7 +68,7 @@
       "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
     }
   ],
-  "root_digest": "0016d21b78e1d63324d3194c31f10bc431ec374662b7171c0fdc04ee2e074690",
+  "root_digest": "9817601e9fee58bbc6de61e339bc05b852ffbb8acc6bde5a9182dd41e5df6768",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
