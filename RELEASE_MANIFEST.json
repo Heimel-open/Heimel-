@@ -37,7 +37,7 @@
     },
     {
       "path": "conformance/v0.2.0/vectors/evidence_unknown.json",
-      "sha256": "42efcf136f83f8cb1fc0679e2d97ae4b09ceeb22fab7546a8e9f89b14f8048a4"
+      "sha256": "b7a1ed77cdaf46a043195691067f443e81711260e67eb719de98085b86c96a8c"
     },
     {
       "path": "conformance/v0.2.0/vectors/delegation_actor.json",
@@ -68,7 +68,7 @@
       "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
     }
   ],
-  "root_digest": "9817601e9fee58bbc6de61e339bc05b852ffbb8acc6bde5a9182dd41e5df6768",
+  "root_digest": "ab12ec423432279f2217404ed5ce6777fd7630854d524eea294007fab72fb0b5",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
