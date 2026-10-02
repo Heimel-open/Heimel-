@@ -1,0 +1,1 @@
+Minimal public reference implementation only. No production runtime, provider-specific adapters, internal heuristics or private VALO code.
