@@ -6,7 +6,7 @@
   "properties": {
     "schema_version": {"const": 2},
     "release_version": {"type": "string", "minLength": 1},
-    "status": {"enum": ["SCRATCH_NOT_RELEASED", "RELEASE_CANDIDATE"]},
+    "status": {"enum": ["SCRATCH_NOT_RELEASED", "PUBLIC_DRAFT", "RELEASE_CANDIDATE"]},
     "files": {
       "type": "array",
       "items": {
