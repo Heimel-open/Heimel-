@@ -1,9 +1,30 @@
 {
   "schema_version": 2,
-  "release_version": "0.0.0-public-scratch",
-  "status": "SCRATCH_NOT_RELEASED",
-  "files": [],
-  "root_digest": null,
+  "release_version": "0.1.0-public-draft.1",
+  "status": "PUBLIC_DRAFT",
+  "files": [
+    {
+      "path": "spec/CONSEQUENCE_LOOP.txt",
+      "sha256": "7528cc8a35977f33a53f4c5a60b862aa1d0e173a4dc45cbf313135a296bac8e6"
+    },
+    {
+      "path": "spec/formal/AuthorityConfinement.cfg",
+      "sha256": "ca6871f35d620cdcbf2643f226a02cd3fe070c825d8e7cb581c062ba8bf8d55d"
+    },
+    {
+      "path": "spec/formal/AuthorityConfinement.tla",
+      "sha256": "0631f97fbd33d2310d6206e79577bacd9520bac57448c83151b7c0240000f479"
+    },
+    {
+      "path": "spec/formal/ConsequenceBoundary.cfg",
+      "sha256": "775785a5cee14bf9fce7d86141c1dc2900af0f7a1028ec773ccea337ad64891c"
+    },
+    {
+      "path": "spec/formal/ConsequenceBoundary.tla",
+      "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
+    }
+  ],
+  "root_digest": "b66e5614b2790b2197e63b846a1cef6ed6b78a97843199664e7f78945adacadd",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
