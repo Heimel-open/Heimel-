@@ -25,6 +25,7 @@ NON_PAYLOAD_FILES = {
     "conformance/SCOPE.txt",
     "conformance/verify_public_release.py",
     "release/SCOPE.txt",
+    "release/attest_release.py",
     "schemas/SCOPE.txt",
     "schemas/release-manifest.schema.json",
     "schemas/public-export-receipt.schema.json",
