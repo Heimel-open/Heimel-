@@ -1,29 +1,60 @@
-HEIMEL PUBLIC CONFORMANCE CONTRACT
+HEIMEL PUBLIC CONFORMANCE CONTRACT — PROTOCOL 2.0
 
 Purpose
-A conforming implementation demonstrates that consequence-bearing effects obey the public HEIMEL authority-to-consequence contract. This suite is implementation-neutral and must not depend on private VALO repositories or runtimes.
+A conforming implementation demonstrates that consequence-bearing effects obey the public HEIMEL authority-to-consequence contract. The suite is implementation-neutral and MUST NOT depend on private VALO repositories, runtimes, policies or product code.
 
-Decision domain
+Normative decision domain
 ALLOW, DENY, ESCALATE.
 
+Normative result status domain
+PASS, FAIL, INDETERMINATE.
+
+INDETERMINATE means the runner could not establish the observation needed to decide a required testcase. INDETERMINATE NEVER counts as conformance PASS.
+
 Normative rules
-1. ALLOW is permitted only when authority is present, fresh at consequence time, not revoked, not expired, sufficient for the exact effect, and all required information is available.
-2. Revoked, expired, stale, missing, insufficient or incomplete authority information MUST NOT produce ALLOW.
-3. An effect outside the authorized scope MUST NOT execute.
-4. The concrete effect MUST be bound to the authority decision that authorized it.
-5. Every consequential decision MUST produce evidence sufficient to bind at least authority version, decision, effect identity and effect action.
-6. DENY and ESCALATE are both fail-closed outcomes when the suite specifies decision_not=ALLOW. The suite does not force a policy choice between them unless a testcase explicitly requires one.
+1. ALLOW is permitted only when authority is present, fresh at consequence time, not revoked, not expired, sufficient for the exact effect, bound to the acting principal and tenant, and all required information is available.
+2. Revoked, expired, future-dated, stale, missing, malformed, insufficient or indeterminate required authority information MUST NOT produce an executable ALLOW.
+3. The concrete effect MUST be exactly bound to the authority decision. Resource, action, parameters, principal, tenant or effect digest mutation after authorization MUST NOT execute.
+4. No consequential effect may occur through an alternate, fallback, admin, exception, retry, asynchronous or recovery path that bypasses a valid consequence-time authority decision.
+5. A one-shot permit or equivalent authorization token MUST NOT authorize more than one consequential effect. Duplicate delivery, retry, restart, node transfer and concurrency MUST preserve this property.
+6. Unknown effect outcome MUST NOT trigger blind replay. Recovery MUST first establish a safe state or remain fail-closed.
+7. Every consequential decision MUST produce evidence sufficient to bind decision id, authority version, decision, exact effect identity/action/digest, consequence time, permit id, implementation digest and configuration digest.
+8. Delegated authority MUST remain confined to its parent authority. Invalid, expired, revoked, broader or wrong-principal delegation MUST NOT produce an executable ALLOW.
+9. ESCALATE MUST NOT execute the effect. Any later human approval or intervention MUST undergo a new fresh authority check before consequence.
+10. A conformance adapter MUST expose enough observation to decide every REQUIRED testcase. Missing observation produces INDETERMINATE, not PASS.
+
+Scenario modes
+single      One consequence attempt.
+sequence    Ordered multi-step scenario such as permit reuse, retry or escalation/resume.
+concurrent  Operations released around a named barrier. The implementation adapter is responsible for exercising actual concurrency or an equivalent deterministically adversarial schedule.
+recovery    Crash/restart/unknown-outcome scenario. The adapter must exercise persistence and recovery semantics, not merely return a predicted answer.
 
 Adapter protocol
-A system under test receives one testcase input object and returns one result object with:
-- decision: ALLOW | DENY | ESCALATE
-- effect_executed: boolean
-- evidence: object or null
+The runner writes one JSON object per testcase to stdin:
+{
+  "protocol": "HEIMEL-CONFORMANCE/2.0",
+  "test": { ... complete testcase ... }
+}
 
-For evidence-binding tests, the evidence object MUST expose values sufficient to establish the fields named by evidence_must_bind. Field names may differ internally; an adapter may map implementation-specific evidence into the public result shape.
+The adapter writes one JSON result object to stdout:
+{
+  "decision": "ALLOW|DENY|ESCALATE",
+  "effect_executed": false,
+  "effect_count": 0,
+  "fresh_authority_observed": true,
+  "blind_replay": false,
+  "evidence": { ... },
+  "observations_complete": true
+}
+
+Fields irrelevant to a testcase may be omitted. Fields required to decide a testcase that are omitted make that testcase INDETERMINATE.
 
 Conformance claim
-A system may claim HEIMEL conformance to a named suite only when every REQUIRED testcase passes against the same implementation version and configuration. A conformance result must identify implementation version, configuration digest, suite digest, testcase outcomes and execution time.
+A system may claim HEIMEL conformance to a named suite only when:
+- every REQUIRED testcase is PASS;
+- no REQUIRED testcase is FAIL or INDETERMINATE;
+- all stopgate groups are represented and PASS;
+- the receipt identifies implementation version, configuration digest, suite digest, testcase outcomes and execution time.
 
 Non-claims
-Passing this suite does not prove the implementation is generally secure, legally compliant, free of implementation defects, or equivalent to any private VALO system. It establishes only the tested public HEIMEL contract behavior.
+Passing this suite does not prove general security, legal compliance, defect freedom, or equivalence to any private VALO system. It establishes only the tested public HEIMEL contract behavior.
