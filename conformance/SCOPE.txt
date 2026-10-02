@@ -1,0 +1,1 @@
+Public conformance tests and vectors only. Tests must target the public HEIMEL contract and must not depend on private repositories.
