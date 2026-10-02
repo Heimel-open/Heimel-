@@ -1,9 +1,8 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "NOT_ATTESTED",
-  "source_repository": null,
-  "source_sha": null,
+  "source_commitment": null,
   "release_manifest_sha256": null,
-  "public_tree_sha256": null,
+  "public_payload_root_sha256": null,
   "attestation": null
 }
