@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "mode": "fail_closed",
   "allowed_top_level": [
     "spec",
@@ -10,13 +10,26 @@
     "attestation",
     ".github"
   ],
+  "public_claim": "A release contains only explicitly manifested public payload whose hashes, payload root and signed export commitments verify under the declared public trust policy.",
+  "does_not_claim": [
+    "that private source code is public",
+    "that private repository history is disclosed",
+    "that absence of all conceptual overlap with private work can be proven"
+  ],
   "forbidden_categories": [
     "private VALO implementation",
-    "production logic",
-    "provider-specific adapters",
+    "production logic not required by the public contract",
+    "provider-specific private adapters",
     "internal heuristics",
     "non-public research",
     "credentials or secrets"
   ],
+  "verification_model": {
+    "public_ci_private_source_access": false,
+    "source_identity": "opaque source_commitment",
+    "payload": "explicit file allowlist with sha256",
+    "integrity": "deterministic payload root",
+    "provenance": "detached signature over release manifest hash, payload root and source commitment"
+  },
   "rule": "Only material required to specify, implement minimally, verify, attest, or release the public HEIMEL authority-to-consequence core may enter this repository."
 }
