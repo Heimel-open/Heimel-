@@ -126,6 +126,16 @@ def main() -> None:
         print("PASS: structural public verification; repository is not release-ready")
         return
 
+    if status == "PUBLIC_DRAFT":
+        if not entries:
+            fail("public draft has no payload")
+        if not valid_hex64(expected_root) or expected_root != root:
+            fail("public draft requires exact payload root_digest")
+        if receipt.get("status") != "NOT_ATTESTED":
+            fail("public draft must remain NOT_ATTESTED")
+        print("PASS: manifested public draft verified; repository is not release-ready")
+        return
+
     if status != "RELEASE_CANDIDATE":
         fail(f"unknown manifest status: {status}")
     if not entries:
