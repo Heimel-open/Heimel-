@@ -1,0 +1,17 @@
+HEIMEL CONSEQUENCE LOOP
+
+Human control cannot require a human to approve every action.
+Human authority must remain operative when an action becomes consequential.
+
+Canonical path:
+intent -> authority check at consequence time -> governed effect -> evidence
+
+Operational rules:
+1. Authority is resolved fresh at consequence time.
+2. No model, agent, tool, workflow or external system receives a direct effect path around that check.
+3. The concrete effect must be bound to the authority decision.
+4. Revoked, expired, stale or insufficient authority fails closed.
+5. A consequential action produces evidence sufficient for deterministic replay.
+
+Core boundary:
+An implementation conforms only when every governed external effect crosses the consequence-time authority boundary and the resulting decision and effect can be independently checked from recorded evidence.
