@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heimel.xyz/schemas/release-manifest.schema.json",
+  "type": "object",
+  "required": ["schema_version", "release_version", "status", "files", "root_digest", "gates"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "release_version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["SCRATCH_NOT_RELEASED", "RELEASE_CANDIDATE"]},
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "root_digest": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "gates": {"type": "object"}
+  },
+  "additionalProperties": false
+}
