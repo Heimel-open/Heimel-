@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "mode": "fail_closed",
+  "allowed_top_level": [
+    "spec",
+    "schemas",
+    "reference",
+    "conformance",
+    "release",
+    "attestation",
+    ".github"
+  ],
+  "forbidden_categories": [
+    "private VALO implementation",
+    "production logic",
+    "provider-specific adapters",
+    "internal heuristics",
+    "non-public research",
+    "credentials or secrets"
+  ],
+  "rule": "Only material required to specify, implement minimally, verify, attest, or release the public HEIMEL authority-to-consequence core may enter this repository."
+}
