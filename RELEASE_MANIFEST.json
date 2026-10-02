@@ -8,6 +8,10 @@
       "sha256": "e59ddec94c04af2a00e64a577370e851be539a798d5218d77777557c054b32ea"
     },
     {
+      "path": "conformance/test_run_conformance.py",
+      "sha256": "6bd9eef7e7f565f8b5f75778d349fbe75c4d3a38606c94d88f4017b93577be4c"
+    },
+    {
       "path": "conformance/v0.1.0/test-vectors.json",
       "sha256": "094d1dae71a1a52f143aa06b9842cb59ab38747f72b50484f0bc8878fe20fd72"
     },
@@ -32,7 +36,7 @@
       "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
     }
   ],
-  "root_digest": "3944b9ab57d46ad831f37e89a4362eabc4edb68b81a6317391ea3a0efe2c64f8",
+  "root_digest": "0016d21b78e1d63324d3194c31f10bc431ec374662b7171c0fdc04ee2e074690",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
