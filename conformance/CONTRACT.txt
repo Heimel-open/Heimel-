@@ -1,0 +1,29 @@
+HEIMEL PUBLIC CONFORMANCE CONTRACT
+
+Purpose
+A conforming implementation demonstrates that consequence-bearing effects obey the public HEIMEL authority-to-consequence contract. This suite is implementation-neutral and must not depend on private VALO repositories or runtimes.
+
+Decision domain
+ALLOW, DENY, ESCALATE.
+
+Normative rules
+1. ALLOW is permitted only when authority is present, fresh at consequence time, not revoked, not expired, sufficient for the exact effect, and all required information is available.
+2. Revoked, expired, stale, missing, insufficient or incomplete authority information MUST NOT produce ALLOW.
+3. An effect outside the authorized scope MUST NOT execute.
+4. The concrete effect MUST be bound to the authority decision that authorized it.
+5. Every consequential decision MUST produce evidence sufficient to bind at least authority version, decision, effect identity and effect action.
+6. DENY and ESCALATE are both fail-closed outcomes when the suite specifies decision_not=ALLOW. The suite does not force a policy choice between them unless a testcase explicitly requires one.
+
+Adapter protocol
+A system under test receives one testcase input object and returns one result object with:
+- decision: ALLOW | DENY | ESCALATE
+- effect_executed: boolean
+- evidence: object or null
+
+For evidence-binding tests, the evidence object MUST expose values sufficient to establish the fields named by evidence_must_bind. Field names may differ internally; an adapter may map implementation-specific evidence into the public result shape.
+
+Conformance claim
+A system may claim HEIMEL conformance to a named suite only when every REQUIRED testcase passes against the same implementation version and configuration. A conformance result must identify implementation version, configuration digest, suite digest, testcase outcomes and execution time.
+
+Non-claims
+Passing this suite does not prove the implementation is generally secure, legally compliant, free of implementation defects, or equivalent to any private VALO system. It establishes only the tested public HEIMEL contract behavior.
