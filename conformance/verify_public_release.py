@@ -25,6 +25,7 @@ NON_PAYLOAD_FILES = {
     "attestation/release-public-key.pem",
     "attestation/release.sig",
     "conformance/SCOPE.txt",
+    "conformance/run_conformance.py",
     "conformance/verify_public_release.py",
     "release/SCOPE.txt",
     "release/attest_release.py",

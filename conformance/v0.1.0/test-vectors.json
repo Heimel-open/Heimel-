@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "heimel_release": "v0.1.0",
+  "decision_domain": [
+    "ALLOW",
+    "DENY",
+    "ESCALATE"
+  ],
+  "tests": [
+    {
+      "id": "HCONF-001",
+      "name": "fresh-valid-authority-allows-bound-effect",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision": "ALLOW",
+        "effect_may_execute": true,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-002",
+      "name": "revoked-authority-fails-closed",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": true,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision_not": "ALLOW",
+        "effect_may_execute": false,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-003",
+      "name": "expired-authority-fails-closed",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T12:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision_not": "ALLOW",
+        "effect_may_execute": false,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-004",
+      "name": "stale-authority-version-fails-closed",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A3"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision_not": "ALLOW",
+        "effect_may_execute": false,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-005",
+      "name": "effect-outside-scope-fails-closed",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "door-1",
+          "action": "unlock",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision_not": "ALLOW",
+        "effect_may_execute": false,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-006",
+      "name": "missing-required-information-fails-closed",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": false
+      },
+      "expect": {
+        "decision_not": "ALLOW",
+        "effect_may_execute": false,
+        "evidence_required": true
+      }
+    },
+    {
+      "id": "HCONF-007",
+      "name": "evidence-binds-decision-and-effect",
+      "required": true,
+      "input": {
+        "authority": {
+          "present": true,
+          "revoked": false,
+          "expires_at": "2026-10-02T13:00:00Z",
+          "checked_at": "2026-10-02T12:30:00Z",
+          "scope": [
+            "lamp:on"
+          ],
+          "version": "A2"
+        },
+        "effect": {
+          "id": "lamp-1",
+          "action": "on",
+          "authority_version": "A2"
+        },
+        "required_info_complete": true
+      },
+      "expect": {
+        "decision": "ALLOW",
+        "effect_may_execute": true,
+        "evidence_required": true,
+        "evidence_must_bind": [
+          "authority_version",
+          "decision",
+          "effect.id",
+          "effect.action"
+        ]
+      }
+    }
+  ]
+}
