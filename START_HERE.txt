@@ -1,0 +1,16 @@
+HEIMEL public core scratch repository.
+
+This repository starts from a clean history and contains only material intended for public release.
+
+Public scope:
+- authority
+- consequence boundary
+- evidence
+- replay
+- conformance
+- minimal public reference implementation
+- release evidence and attestation
+
+Private VALO implementation, production logic, provider adapters, internal heuristics, non-public research, credentials and secrets are out of scope.
+
+Nothing is considered released until RELEASE_MANIFEST.json and PUBLIC_EXPORT_RECEIPT.json are complete and all required CI gates pass.
