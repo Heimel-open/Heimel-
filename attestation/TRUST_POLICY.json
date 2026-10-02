@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "UNCONFIGURED",
+  "status": "CONFIGURED",
   "algorithm": "RSA-SHA256",
   "public_key_path": "attestation/release-public-key.pem",
   "signature_path": "attestation/release.sig",
