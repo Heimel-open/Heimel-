@@ -1,0 +1,37 @@
+name: Public boundary
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce public repository surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          allowed_root='^(VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json)$'
+          allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
+          bad=0
+          while IFS= read -r path; do
+            if [[ "$path" =~ $allowed_root || "$path" =~ $allowed_prefix ]]; then
+              continue
+            fi
+            echo "Forbidden public path: $path"
+            bad=1
+          done < <(git ls-files)
+          exit "$bad"
+      - name: Reject private markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -E 'HEIMEL_PRIVATE|PRIVATE_RESEARCH|CONFIDENTIAL_DO_NOT_PUBLISH|INTERNAL_ONLY|PROPRIETARY_DO_NOT_PUBLISH|SECRET_DO_NOT_COMMIT' -- ':!PUBLIC_BOUNDARY.json'; then
+            echo 'Private marker detected'
+            exit 1
+          fi
