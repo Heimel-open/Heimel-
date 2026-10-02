@@ -1,0 +1,1 @@
+Public attestation schemas, verification metadata and public keys only. Private signing keys are forbidden.
