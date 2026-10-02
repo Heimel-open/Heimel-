@@ -17,8 +17,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
       - name: Verify public release evidence
         run: python conformance/verify_public_release.py
+      - name: Verify formal authority models
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar \
+            --output /tmp/tla2tools.jar
+          echo 'edee9330068fbb7be0bc9dc2bc928f5918a7635b5ee4da56dbb48556b7afa6a2  /tmp/tla2tools.jar' | sha256sum --check
+          (
+            cd spec/formal
+            java -XX:+UseParallelGC -cp /tmp/tla2tools.jar tlc2.TLC -cleanup ConsequenceBoundary.tla -config ConsequenceBoundary.cfg
+            java -XX:+UseParallelGC -cp /tmp/tla2tools.jar tlc2.TLC -cleanup AuthorityConfinement.tla -config AuthorityConfinement.cfg
+          )
       - name: Reject obvious secret material
         shell: bash
         run: |
