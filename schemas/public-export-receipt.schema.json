@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heimel.xyz/schemas/public-export-receipt.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "source_commitment", "release_manifest_sha256", "public_payload_root_sha256", "attestation"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "status": {"enum": ["NOT_ATTESTED", "ATTESTED"]},
+    "source_commitment": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "release_manifest_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "public_payload_root_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "attestation": {"type": ["object", "null"]}
+  },
+  "additionalProperties": false
+}
