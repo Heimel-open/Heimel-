@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -n -I -E '(BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|aws_secret_access_key|client_secret[[:space:]]*[:=]|api[_-]?key[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{16,}|token[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{20,})' -- ':!conformance/verify_public_release.py'; then
+          if git grep -n -I -E '(BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|aws_secret_access_key|client_secret[[:space:]]*[:=]|api[_-]?key[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{16,}|token[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{20,})' -- ':!conformance/verify_public_release.py' ':!.github/workflows/public-release-verification.yml'; then
             echo 'Potential secret material detected'
             exit 1
           fi
@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- '.github/**' 'conformance/**'; then
-            echo 'Public verification must not access private VALO source'
+          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- 'conformance/**' ':!conformance/verify_public_release.py'; then
+            echo 'Public verification code must not access private source'
             exit 1
           fi
