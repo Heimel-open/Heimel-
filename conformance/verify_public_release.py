@@ -22,6 +22,8 @@ NON_PAYLOAD_FILES = {
     ".github/workflows/public-release-verification.yml",
     "attestation/SCOPE.txt",
     "attestation/TRUST_POLICY.json",
+    "attestation/release-public-key.pem",
+    "attestation/release.sig",
     "conformance/SCOPE.txt",
     "conformance/verify_public_release.py",
     "release/SCOPE.txt",
