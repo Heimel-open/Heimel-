@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "release_version": "0.0.0-public-scratch",
+  "status": "SCRATCH_NOT_RELEASED",
+  "source": null,
+  "files": [],
+  "root_digest": null,
+  "gates": {
+    "public_boundary": "PENDING",
+    "manifest_integrity": "PENDING",
+    "source_attestation": "PENDING",
+    "conformance": "PENDING",
+    "formal_verification": "PENDING",
+    "secret_scan": "PENDING"
+  }
+}
