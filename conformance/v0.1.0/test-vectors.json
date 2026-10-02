@@ -17,7 +17,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
@@ -43,7 +45,9 @@
           "revoked": true,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
@@ -69,7 +73,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T12:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
@@ -95,7 +101,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A3"
         },
         "effect": {
@@ -121,7 +129,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
@@ -147,7 +157,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
@@ -173,7 +185,9 @@
           "revoked": false,
           "expires_at": "2026-10-02T13:00:00Z",
           "checked_at": "2026-10-02T12:30:00Z",
-          "scope": ["lamp:on"],
+          "scope": [
+            "lamp:on"
+          ],
           "version": "A2"
         },
         "effect": {
