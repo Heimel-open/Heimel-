@@ -23,6 +23,8 @@ jobs:
           java-version: "17"
       - name: Verify public release evidence
         run: python conformance/verify_public_release.py
+      - name: Verify conformance runner semantics
+        run: python conformance/test_run_conformance.py
       - name: Verify formal authority models
         shell: bash
         run: |
