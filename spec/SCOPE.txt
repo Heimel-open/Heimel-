@@ -1,0 +1,1 @@
+Normative public HEIMEL contracts only. No private VALO architecture or implementation.
