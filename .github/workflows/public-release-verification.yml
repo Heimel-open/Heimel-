@@ -1,0 +1,37 @@
+name: Public release verification
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify public release evidence
+        run: python conformance/verify_public_release.py
+      - name: Reject obvious secret material
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -E '(BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|aws_secret_access_key|client_secret[[:space:]]*[:=]|api[_-]?key[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{16,}|token[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_/-]{20,})' -- ':!conformance/verify_public_release.py'; then
+            echo 'Potential secret material detected'
+            exit 1
+          fi
+      - name: Assert no private-source dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- '.github/**' 'conformance/**'; then
+            echo 'Public verification must not access private VALO source'
+            exit 1
+          fi
