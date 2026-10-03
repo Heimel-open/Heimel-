@@ -1,6 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "mode": "fail_closed",
+  "status": "FROZEN_PUBLIC_SURFACE",
   "allowed_top_level": [
     "spec",
     "schemas",
@@ -11,6 +12,26 @@
     ".github"
   ],
   "public_claim": "A release contains only explicitly manifested public payload whose hashes, payload root and signed export commitments verify under the declared public trust policy.",
+  "freeze": {
+    "rule": "Public HEIMEL is frozen at the established public release boundary. Post-freeze private research, runtime architecture and product development are not HEIMEL public development.",
+    "allowed_changes": [
+      "external conformance",
+      "necessary public-contract correction",
+      "concrete falsification",
+      "security or semantic defect correction"
+    ],
+    "forbidden_post_freeze_imports": [
+      "Synapse or distributed-intelligence research",
+      "GAUTE or any private mechanism or recipe",
+      "relational-state or relational-history mechanisms",
+      "holonomy or carrier/substitution mechanisms",
+      "private provenance architecture",
+      "ACE or continuity-layer architecture",
+      "other proprietary VALO post-freeze runtime or product architecture"
+    ],
+    "no_feature_expansion": true,
+    "promotion_requires_explicit_human_decision": true
+  },
   "does_not_claim": [
     "that private source code is public",
     "that private repository history is disclosed",
@@ -31,5 +52,5 @@
     "integrity": "deterministic payload root",
     "provenance": "detached signature over release manifest hash, payload root and source commitment"
   },
-  "rule": "Only material required to specify, implement minimally, verify, attest, or release the public HEIMEL authority-to-consequence core may enter this repository."
+  "rule": "Only material required to specify, implement minimally, verify, attest, or release the frozen public HEIMEL authority-to-consequence core may enter this repository."
 }
