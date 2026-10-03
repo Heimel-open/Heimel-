@@ -52,6 +52,8 @@ def authority_allows(data: dict) -> bool:
         return False
     if data.get("required_info_complete") is False:
         return False
+    if data.get("adapter_fault") is not None:
+        return False
     if authority.get("present") is not True or authority.get("revoked") is not False:
         return False
     if authority.get("delegation_chain_valid") is not True:
