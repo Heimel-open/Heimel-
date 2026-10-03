@@ -1,16 +1,27 @@
-HEIMEL public core scratch repository.
+HEIMEL public authority-to-consequence core.
 
-This repository starts from a clean history and contains only material intended for public release.
+Current stable public release: v0.2.0
+Release: https://github.com/Heimel-open/Heimel-/releases/tag/v0.2.0
+Public repository: https://github.com/Heimel-open/Heimel-
+Website: https://heimel.xyz/
+
+HEIMEL defines a narrow public contract for consequence-bearing actions: whether an exact proposed consequence is authorized now under current authority and conditions, and whether the decision and observed effect can be verified afterwards.
 
 Public scope:
-- authority
-- consequence boundary
-- evidence
-- replay
-- conformance
+- fresh authority at consequence time
+- exact effect binding
+- fail-closed semantics
+- one-shot / replay protection
+- no direct effect path
+- actor, tenant and delegation confinement
+- evidence and replay
+- formal authority/consequence models
+- executable conformance tests
 - minimal public reference implementation
 - release evidence and attestation
 
-Private VALO implementation, production logic, provider adapters, internal heuristics, non-public research, credentials and secrets are out of scope.
+HEIMEL-CONFORMANCE/2.0 includes 79 REQUIRED normative vectors. The public reference adapter passes 79/79 and all five release stopgates.
 
-Nothing is considered released until RELEASE_MANIFEST.json and PUBLIC_EXPORT_RECEIPT.json are complete and all required CI gates pass.
+Public HEIMEL is not the full VALO stack and is not the full private REHT implementation. Private VALO runtime, authority-resolution internals, product logic, orchestration, provider adapters, internal heuristics, non-public research, credentials and secrets remain out of scope.
+
+For a stable historical reference, use the immutable release tag rather than the evolving main branch.
