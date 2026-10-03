@@ -25,6 +25,15 @@ jobs:
         run: python conformance/verify_public_release.py
       - name: Verify conformance runner semantics
         run: python conformance/test_run_conformance.py
+      - name: Verify public reference adapter
+        run: python reference/test_adapter.py
+      - name: Run v0.2.0 reference conformance
+        run: |
+          python conformance/run_conformance.py \
+            --adapter "python reference/adapter.py" \
+            --implementation "heimel-public-reference-adapter/0.2.0" \
+            --configuration-digest "dce8fdff9757e9092583d45b7d3a8f2b139532d838332fcc974e84a971e4a870" \
+            --output /tmp/reference-conformance.json
       - name: Verify formal authority models
         shell: bash
         run: |
@@ -50,7 +59,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- 'conformance/**' ':!conformance/verify_public_release.py'; then
+          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- 'conformance/**' 'reference/**' ':!conformance/verify_public_release.py'; then
             echo 'Public verification code must not access private source'
             exit 1
           fi
