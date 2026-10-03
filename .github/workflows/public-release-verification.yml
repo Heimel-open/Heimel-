@@ -39,9 +39,12 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --location --silent --show-error \
-            https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar \
+            -H 'Accept: application/octet-stream' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            https://api.github.com/repos/tlaplus/tlaplus/releases/assets/606031783 \
             --output /tmp/tla2tools.jar
-          echo '8862b1349e0d8adc1792c9a941c2389c66ed24f118a1b06e4dd950d268e48c8c  /tmp/tla2tools.jar' | sha256sum --check
+          echo 'b490f45c1de08e4ff9753259a00338981b9cf464f01ca9e9cd5f19f33cf0bb92  /tmp/tla2tools.jar' | sha256sum --check
           (
             cd spec/formal
             java -XX:+UseParallelGC -cp /tmp/tla2tools.jar tlc2.TLC -cleanup ConsequenceBoundary.tla -config ConsequenceBoundary.cfg
