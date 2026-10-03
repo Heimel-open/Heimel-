@@ -16,7 +16,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          allowed_root='^(VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json)$'
+          allowed_root='^(README\.md|VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json)$'
           allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
           bad=0
           while IFS= read -r path; do
