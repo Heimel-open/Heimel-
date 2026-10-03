@@ -16,4 +16,13 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
-      - run: python reference/test_adapter.py
+      - name: Unit-test reference adapter
+        run: python reference/test_adapter.py
+      - name: Run full v0.2.0 conformance suite
+        run: |
+          python conformance/run_conformance.py \
+            --adapter "python reference/adapter.py" \
+            --implementation "heimel-public-reference-adapter/0.2.0" \
+            --configuration-digest "dce8fdff9757e9092583d45b7d3a8f2b139532d838332fcc974e84a971e4a870" \
+            --output /tmp/reference-conformance.json
+          cat /tmp/reference-conformance.json
