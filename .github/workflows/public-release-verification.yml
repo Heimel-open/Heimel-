@@ -25,14 +25,26 @@ jobs:
         run: python conformance/verify_public_release.py
       - name: Verify conformance runner semantics
         run: python conformance/test_run_conformance.py
+      - name: Verify public reference adapter
+        run: python reference/test_adapter.py
+      - name: Run v0.2.0 reference conformance
+        run: |
+          python conformance/run_conformance.py \
+            --adapter "python reference/adapter.py" \
+            --implementation "heimel-public-reference-adapter/0.2.0" \
+            --configuration-digest "dce8fdff9757e9092583d45b7d3a8f2b139532d838332fcc974e84a971e4a870" \
+            --output /tmp/reference-conformance.json
       - name: Verify formal authority models
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --location --silent --show-error \
-            https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar \
+            -H 'Accept: application/octet-stream' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            https://api.github.com/repos/tlaplus/tlaplus/releases/assets/606031783 \
             --output /tmp/tla2tools.jar
-          echo '8862b1349e0d8adc1792c9a941c2389c66ed24f118a1b06e4dd950d268e48c8c  /tmp/tla2tools.jar' | sha256sum --check
+          echo 'b490f45c1de08e4ff9753259a00338981b9cf464f01ca9e9cd5f19f33cf0bb92  /tmp/tla2tools.jar' | sha256sum --check
           (
             cd spec/formal
             java -XX:+UseParallelGC -cp /tmp/tla2tools.jar tlc2.TLC -cleanup ConsequenceBoundary.tla -config ConsequenceBoundary.cfg
@@ -50,7 +62,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- 'conformance/**' ':!conformance/verify_public_release.py'; then
+          if git grep -n -I -E '(checkout|clone|fetch).*(valo|private)|github\.com/.*/valo' -- 'conformance/**' 'reference/**' ':!conformance/verify_public_release.py'; then
             echo 'Public verification code must not access private source'
             exit 1
           fi

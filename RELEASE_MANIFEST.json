@@ -48,6 +48,18 @@
       "sha256": "a89bbd28232ddd86c066e04a4a0b7c5e27917cdccdb4d3655cab1dba8ddea997"
     },
     {
+      "path": "conformance/receipts/reference-v0.2.0.json",
+      "sha256": "c13f53578664e3c9c430eb7d0050e843de4bf13ee28b83d7f3b1db9a6f5910b4"
+    },
+    {
+      "path": "reference/adapter.py",
+      "sha256": "57da72f0b5afd873341eb8964e5805195e0f125ad5695df0c9e05f1fb52b8323"
+    },
+    {
+      "path": "reference/test_adapter.py",
+      "sha256": "c027473ef3101f4504d35c0de7c51cc76ea1773ee14c1295f798348f845abd50"
+    },
+    {
       "path": "spec/CONSEQUENCE_LOOP.txt",
       "sha256": "7528cc8a35977f33a53f4c5a60b862aa1d0e173a4dc45cbf313135a296bac8e6"
     },
@@ -68,7 +80,7 @@
       "sha256": "88e418edf73ebe0a4cb75957c0f57b2a322b6430c8f8dc11dbd9e5029cdad8cd"
     }
   ],
-  "root_digest": "ab12ec423432279f2217404ed5ce6777fd7630854d524eea294007fab72fb0b5",
+  "root_digest": "0b975035416adf42b60dac160ef4eb944ae4e743a4a3aea1637359cf3d715b8c",
   "gates": {
     "public_boundary": "REQUIRED",
     "manifest_integrity": "REQUIRED",
