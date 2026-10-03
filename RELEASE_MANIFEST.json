@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "release_version": "0.2.0-public-draft.1",
-  "status": "PUBLIC_DRAFT",
+  "release_version": "0.2.0",
+  "status": "RELEASE_CANDIDATE",
   "files": [
     {
       "path": "conformance/CONTRACT.txt",
