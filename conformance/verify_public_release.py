@@ -13,6 +13,7 @@ BOUNDARY = ROOT / "PUBLIC_BOUNDARY.json"
 TRUST = ROOT / "attestation" / "TRUST_POLICY.json"
 
 NON_PAYLOAD_FILES = {
+    "README.md",
     "VERSION",
     "START_HERE.txt",
     "PUBLIC_BOUNDARY.json",
