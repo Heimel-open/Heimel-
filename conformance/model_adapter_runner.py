@@ -36,7 +36,7 @@ def observe(path):
 def replay(schedule,mutant=False,adapter_factory=None):
     adapter=(adapter_factory or SQLiteFixtureAdapter)(mutant=mutant)
     try:
-        version=0;issued={};expected={}
+        version=0;issued={};expected={};receipt_failures=[]
         for step in schedule:
             if step.startswith('issue_'):
                 actor=step[-1];issued[actor]=version;adapter.issue(actor,version)
@@ -48,10 +48,15 @@ def replay(schedule,mutant=False,adapter_factory=None):
                 if allowed:expected[permit]='effect-'+actor
                 adapter.commit(actor)
             elif step.startswith('receipt_'):
-                adapter.receipt(step[-1])
+                actor=step[-1]
+                outcome=adapter.receipt(actor)
+                should_commit=('p'+actor) in expected
+                required='PASS' if should_commit else 'DENIED'
+                if outcome.get('status')!=required:
+                    receipt_failures.append({'actor':actor,'required':required,'observed':outcome})
             else:raise ValueError(step)
         actual=adapter.observe()
-        return {'status':'PASS' if actual==expected else 'FAIL','schedule':schedule,'expected':expected,'observed':actual}
+        return {'status':'PASS' if actual==expected and not receipt_failures else 'FAIL','schedule':schedule,'expected':expected,'observed':actual,'receipt_failures':receipt_failures}
     finally:adapter.close()
 
 
