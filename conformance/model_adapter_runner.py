@@ -11,7 +11,7 @@ import tempfile
 from collections import deque
 from pathlib import Path
 from multi_permit_explorer import INITIAL,successors
-from race_adapter import dbopen,setstate
+from scheduler_protocol import SQLiteFixtureAdapter
 
 
 def enumerate_schedules():
@@ -33,37 +33,26 @@ def observe(path):
         return dict(conn.execute('SELECT permit,effect FROM effects'))
 
 
-def replay(schedule,mutant=False):
-    with tempfile.TemporaryDirectory(prefix='heimel-model-adapter-') as tmp:
-        path=str(Path(tmp)/'effects.db');db=dbopen(path);db.close()
-        setstate(path,'authority','valid')
+def replay(schedule,mutant=False,adapter_factory=None):
+    adapter=(adapter_factory or SQLiteFixtureAdapter)(mutant=mutant)
+    try:
         version=0;issued={};expected={}
         for step in schedule:
             if step.startswith('issue_'):
-                issued[step[-1]]=version
+                actor=step[-1];issued[actor]=version;adapter.issue(actor,version)
             elif step.startswith('authority_version_'):
-                version=int(step.rsplit('_',1)[1])
-                setstate(path,'authority','revoked' if version==2 else 'valid')
+                version=int(step.rsplit('_',1)[1]);adapter.update(version)
             elif step.startswith(('commit_','deny_')):
                 actor=step[-1];permit='p'+actor
                 allowed=issued[actor]==version and version<2
                 if allowed:expected[permit]='effect-'+actor
-                db=dbopen(path)
-                db.execute('BEGIN IMMEDIATE')
-                try:
-                    # This fixture executes an isolated transactional effect.
-                    # Mutant deliberately ignores the authority/version check.
-                    if allowed or mutant:
-                        db.execute('INSERT OR IGNORE INTO effects VALUES (?,?)',(permit,'effect-'+actor))
-                    db.execute('COMMIT')
-                except BaseException:
-                    db.execute('ROLLBACK');raise
-                finally:db.close()
+                adapter.commit(actor)
             elif step.startswith('receipt_'):
-                pass
+                adapter.receipt(step[-1])
             else:raise ValueError(step)
-        actual=observe(path)
+        actual=adapter.observe()
         return {'status':'PASS' if actual==expected else 'FAIL','schedule':schedule,'expected':expected,'observed':actual}
+    finally:adapter.close()
 
 
 def run(max_schedules=25):
