@@ -42,7 +42,13 @@ def explore(stale=False,limit=100000):
                 seen.add(new)
                 if len(seen)>limit:return {'status':'INCOMPLETE','states':len(seen),'edges':edges,'violations':violations}
                 q.append((new,trace+(action,)))
-    return {'status':'FAIL' if violations else 'PASS','states':len(seen),'edges':edges,'terminal':terminal,'violations':violations,'bound':{'permits':2,'versions':3,'actors':3},'method':'bounded exhaustive BFS; no DPOR'}
+    # Counts below distinguish transition-level counterexamples from root causes.
+    # A single stale-authority defect may occur in many reachable schedules.
+    root_causes=sorted({v['invariant'] for v in violations})
+    return {'status':'FAIL' if violations else 'PASS','states':len(seen),'edges':edges,'terminal':terminal,
+            'violations':violations,'violation_occurrences':len(violations),
+            'unique_invariant_classes':root_causes,'unique_invariant_class_count':len(root_causes),
+            'bound':{'permits':2,'versions':3,'actors':3},'method':'bounded exhaustive BFS; no DPOR'}
 
 if __name__=='__main__':
     result={'normal':explore(),'stale_mutant':explore(stale=True)}
