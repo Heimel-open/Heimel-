@@ -41,6 +41,7 @@ NON_PAYLOAD_FILES = {
     "conformance/test_observed_runtime.py",
     "conformance/test_receipt_binding.py",
     "conformance/test_scheduler_protocol.py",
+    "conformance/test_runner_receipt_integration.py",
     "release/SCOPE.txt",
     "release/attest_release.py",
     "schemas/SCOPE.txt",
