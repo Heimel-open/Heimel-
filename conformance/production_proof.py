@@ -31,22 +31,20 @@ def verify_bundle(bundle, trusted_keys=None):
         if name not in hashes:return {'status':'INCOMPLETE','reason':'missing artifact hash','artifact':name}
         if not hmac.compare_digest(str(hashes[name]),digest(bundle[name])):
             return {'status':'FAIL','reason':'artifact hash mismatch','artifact':name}
-    signature=bundle.get('attestation')
-    if not signature:return {'status':'INCOMPLETE','reason':'missing signed attestation'}
-    key_id=signature.get('key_id')
-    if key_id not in trusted_keys:return {'status':'INCOMPLETE','reason':'untrusted or missing verification key'}
-    # HMAC is intentionally a test-only verification primitive; it is not
-    # sufficient for third-party production attestation or hardware identity.
-    if signature.get('algorithm')!='HMAC-SHA256-TEST-ONLY':
-        return {'status':'INCOMPLETE','reason':'production signature verifier not configured'}
-    mac=hmac.new(trusted_keys[key_id],canonical({'manifest':manifest,'gates':bundle['gates']}),hashlib.sha256).hexdigest()
-    if not hmac.compare_digest(mac,str(signature.get('signature',''))):
-        return {'status':'FAIL','reason':'attestation mismatch'}
+    statuses=[bundle['gates'].get(g,'INCOMPLETE') for g in GATES]
+    if any(s=='FAIL' for s in statuses):return {'status':'FAIL','reason':'failed production gate'}
+    # A signature over the full evidence manifest is necessary, not sufficient:
+    # every required gate must also have independently checkable evidence.
+    from production_attestation import verify_attestation
+    signature=verify_attestation(bundle.get('attestation'),
+        {'manifest':manifest,'gates':bundle['gates']},trusted_keys)
+    if signature['status']!='PASS':return signature
     statuses=[bundle['gates'].get(g,'INCOMPLETE') for g in GATES]
     if any(s=='FAIL' for s in statuses):return {'status':'FAIL','reason':'failed production gate'}
     if any(s!='PASS' for s in statuses):return {'status':'INCOMPLETE','reason':'unproven production gate'}
-    # No production signing algorithm is implemented; never certify a test MAC.
-    return {'status':'INCOMPLETE','reason':'test-only MAC cannot establish production attestation'}
+    # Do not trust self-declared PASS values from a signed bundle. A production
+    # observer must attest actual external effect/recovery evidence separately.
+    return {'status':'INCOMPLETE','reason':'external effect and recovery witnesses not verified'}
 
 def verify_directory(path, trusted_keys=None):
     root=Path(path)
