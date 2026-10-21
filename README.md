@@ -79,4 +79,4 @@ https://heimel.xyz/
 
 ## License and release boundary
 
-Use the repository's declared licensing and release metadata for authoritative terms. A GitHub branch may continue to evolve after a release; the immutable release tag is the stable historical reference.
+The public HEIMEL source and reference implementation are licensed under the **Apache License 2.0**; see [LICENSE](LICENSE). This does not grant rights to private VALO/REHT implementations or official HEIMEL certification. The immutable release tag is the stable historical reference; changes on this branch do not retroactively modify v0.2.0.
