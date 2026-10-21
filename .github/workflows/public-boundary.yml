@@ -16,6 +16,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -s LICENSE || { echo "Missing LICENSE"; exit 1; }
+          grep -q "Version 2.0, January 2004" LICENSE || { echo "Apache-2.0 LICENSE invalid"; exit 1; }
           allowed_root='^(README\.md|VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json)$'
           allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
           bad=0
