@@ -14,6 +14,7 @@ TRUST = ROOT / "attestation" / "TRUST_POLICY.json"
 
 NON_PAYLOAD_FILES = {
     "README.md",
+    "LICENSE",
     "VERSION",
     "START_HERE.txt",
     "PUBLIC_BOUNDARY.json",
@@ -31,6 +32,12 @@ NON_PAYLOAD_FILES = {
     "conformance/model_adapter_runner.py",
     "conformance/multi_permit_explorer.py",
     "conformance/observed_runtime.py",
+    "conformance/production_attestation.py",
+    "conformance/PRODUCTION_PROFILE.md",
+    "conformance/production_proof.py",
+    "conformance/test_production_proof.py",
+    "conformance/verify_production_bundle.py",
+    "docs/AUTHORITY_SEMANTICS_VS_ENFORCEMENT.md",
     "conformance/race_adapter.py",
     "conformance/race_interleavings.py",
     "conformance/receipt_contract.py",
@@ -97,6 +104,9 @@ def main() -> None:
     boundary = load(BOUNDARY)
     trust = load(TRUST)
     tracked = tracked_files()
+    license_file = ROOT / "LICENSE"
+    if "LICENSE" not in tracked or not license_file.is_file() or "Apache License" not in license_file.read_text(encoding="utf-8") or "Version 2.0, January 2004" not in license_file.read_text(encoding="utf-8"):
+        fail("Apache-2.0 LICENSE must be present and tracked")
 
     if boundary.get("mode") != "fail_closed":
         fail("PUBLIC_BOUNDARY must be fail_closed")
