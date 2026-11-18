@@ -11,6 +11,7 @@ Unknown outcomes are retained even after the configured rolling window.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from contextlib import contextmanager
 import sqlite3
 from pathlib import Path
 
@@ -60,10 +61,15 @@ class Ledger:
                 "CREATE INDEX IF NOT EXISTS exposure_scope ON reservations(tenant,scope,dimension,unit,state,created)"
             )
 
+    @contextmanager
     def _db(self):
         db = sqlite3.connect(self.path, timeout=10, isolation_level=None)
-        db.row_factory = sqlite3.Row
-        return db
+        try:
+            db.row_factory = sqlite3.Row
+            with db:
+                yield db
+        finally:
+            db.close()
 
     def reserve(self, request: Request) -> str:
         request.validate()

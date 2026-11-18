@@ -51,6 +51,8 @@ NON_PAYLOAD_FILES = {
     "conformance/test_runner_receipt_integration.py",
     "release/SCOPE.txt",
     "release/attest_release.py",
+    "release/verify_exposure_candidate.py",
+    "release/v0.3.0-rc1/manifest.json",
     "schemas/SCOPE.txt",
     "schemas/release-manifest.schema.json",
     "schemas/public-export-receipt.schema.json",
