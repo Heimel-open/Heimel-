@@ -19,7 +19,26 @@ jobs:
           set -euo pipefail
           test -s LICENSE || { echo "Missing LICENSE"; exit 1; }
           grep -q "Version 2.0, January 2004" LICENSE || { echo "Apache-2.0 LICENSE invalid"; exit 1; }
-          allowed_root='^(README\.md|VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json)$'
+          allowed_root='^(README\.md|VERSION|START_HERE\.txt|LICENSE|PUBLIC_BOUNDARY\.json|RELEASE_MANIFEST\.json|PUBLIC_EXPORT_RECEIPT\.json|docs/AUTHORITY_SEMANTICS_VS_ENFORCEMENT\.md)
+          allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
+          bad=0
+          while IFS= read -r path; do
+            if [[ "$path" =~ $allowed_root || "$path" =~ $allowed_prefix ]]; then
+              continue
+            fi
+            echo "Forbidden public path: $path"
+            bad=1
+          done < <(git ls-files)
+          exit "$bad"
+      - name: Reject private markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -E 'HEIMEL_PRIVATE|PRIVATE_RESEARCH|CONFIDENTIAL_DO_NOT_PUBLISH|INTERNAL_ONLY|PROPRIETARY_DO_NOT_PUBLISH|SECRET_DO_NOT_COMMIT' -- ':!PUBLIC_BOUNDARY.json' ':!.github/workflows/public-boundary.yml'; then
+            echo 'Private marker detected'
+            exit 1
+          fi
+
           allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
           bad=0
           while IFS= read -r path; do
