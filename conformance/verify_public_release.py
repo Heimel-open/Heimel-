@@ -56,6 +56,8 @@ NON_PAYLOAD_FILES = {
     "schemas/public-export-receipt.schema.json",
     "spec/SCOPE.txt",
     "reference/SCOPE.txt",
+    "conformance/exposure_profile_v0.json",
+    "conformance/test_exposure_profile.py",
     "reference/exposure.py",
     "reference/test_exposure.py",
     "reference/EXPOSURE_SCOPE.txt",
