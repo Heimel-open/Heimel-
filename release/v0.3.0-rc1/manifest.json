@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "version": "0.3.0-rc1",
+  "status": "UNSIGNED_RELEASE_CANDIDATE",
+  "base_release": "v0.2.0",
+  "base_release_commit": "456e16935ac2cf0b4f47bc1343b5663cad240dea",
+  "scope": "generic cumulative exposure accounting reference, experimental and not production qualified",
+  "files": [
+    {
+      "path": "conformance/exposure_profile_v0.json",
+      "sha256": "98e063791c3307694200dbc1ff70b9ddb801cb4105e4c6053ad9148571ea2380"
+    },
+    {
+      "path": "conformance/test_exposure_profile.py",
+      "sha256": "9c054963e77e6153727912fbb31257391b70fecbb5e4de8aebeadb7f8a2c95a8"
+    },
+    {
+      "path": "reference/EXPOSURE_SCOPE.txt",
+      "sha256": "3e17773798c9555dd9b2b598ff7bb045bb2a09483200b7a3ebc8c93a53d8c381"
+    },
+    {
+      "path": "reference/exposure.py",
+      "sha256": "d644283dad7f159122c74e91633bccccd6d0d2404c526a276ceaace78d5d7e39"
+    },
+    {
+      "path": "reference/test_exposure.py",
+      "sha256": "10fed1c76b05aee695ab398af20a4895a173448a1eada4caeb264b7f644e4914"
+    }
+  ],
+  "root_digest": "bb30ae9589bfc589e38d044aa6ffb95ac26743ec08d72563d842b07008f76efc",
+  "source_commitment": null,
+  "release_manifest_sha256": null,
+  "signature": null,
+  "qualification": {
+    "public_reference": "LOCAL_TESTED",
+    "experimental_vectors": "7_OF_7_LOCAL_PASS",
+    "v0.2.0_conformance": "79_OF_79_LOCAL_PASS",
+    "production_effect": "NOT_VERIFIED",
+    "independent_review": "NOT_COMPLETED"
+  },
+  "requirements_to_sign": [
+    "operator-approved source commitment",
+    "authorized release signing key matching configured trust anchor",
+    "independent audit of source, security and licensing",
+    "re-run formal models and all release checks"
+  ]
+}
