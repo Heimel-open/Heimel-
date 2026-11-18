@@ -1,0 +1,28 @@
+CUMULATIVE EXPOSURE — OPTIONAL PUBLIC REFERENCE EXTENSION (UNRELEASED)
+
+The core HEIMEL v0.2.0 public release and 79 REQUIRED vectors are unchanged.
+This extension is not part of the signed v0.2.0 payload or a production
+qualification. It demonstrates one generic accounting mechanism with
+stdlib SQLite transactions; it is NOT a port of private VALO/HEIMEL runtime
+code and does not itself grant authority, execute effects, or certify an
+enterprise budget.
+
+Normative design candidates for a future independently versioned profile:
+- Exposure is accumulated by tenant, approved scope, dimension and unit,
+  across actors and request IDs, before authorization permits any effect.
+- Atomic reservation must deny when available headroom is exhausted.
+- Reusing an idempotency key with changed action/scope/amount must deny.
+- A known, verified no-effect refusal may release a pending reservation.
+- An UNKNOWN or disputed outcome holds exposure until independent evidence
+  reconciles it; elapsed time alone is insufficient to release it.
+- Missing trusted policy, invalid amount/unit, ledger outage or ambiguous
+  outcome must never issue an executable ALLOW.
+
+Reference-specific limitations: caller supplies ceiling/window/clock, which
+MUST come from a trusted authority in a real implementation; the sample has
+no trusted reader, signature, time authority, Veritas evidence, reconciliation,
+PostgreSQL adapter, permit binding, or crash/effect witness. It is not
+production-capable. This new reference is Apache-2.0 under the public repo
+license and was independently written for the public contract.
+
+Run: python reference/test_exposure.py

@@ -1,0 +1,42 @@
+{
+  "profile": "HEIMEL-EXPOSURE-EXPERIMENTAL/0.1",
+  "release_status": "UNRELEASED",
+  "cases": [
+    {"id": "EXP-001", "name": "shared-budget-across-agent-requests", "steps": [
+      {"id": "agent-a", "amount": 60, "expect": "reserved"},
+      {"id": "agent-b", "amount": 41, "expect": "DENY"},
+      {"id": "agent-c", "amount": 40, "expect": "reserved"}
+    ]},
+    {"id": "EXP-002", "name": "unknown-outcome-retained-across-windows", "steps": [
+      {"id": "first", "amount": 80, "expect": "reserved"},
+      {"transition": "unknown", "id": "first"},
+      {"id": "second", "amount": 21, "now": 10000, "expect": "DENY"},
+      {"id": "third", "amount": 20, "now": 10000, "expect": "reserved"}
+    ]},
+    {"id": "EXP-003", "name": "released-budget-does-not-replay", "steps": [
+      {"id": "first", "amount": 80, "expect": "reserved"},
+      {"transition": "released", "id": "first"},
+      {"id": "first", "amount": 80, "expect": "DENY"},
+      {"id": "fresh", "amount": 100, "expect": "reserved"}
+    ]},
+    {"id": "EXP-004", "name": "wrong-payload-same-id-denied", "steps": [
+      {"id": "same", "amount": 40, "expect": "reserved"},
+      {"id": "same", "amount": 41, "expect": "DENY"}
+    ]},
+    {"id": "EXP-005", "name": "tenant-and-unit-isolation", "steps": [
+      {"id": "t1", "amount": 100, "expect": "reserved"},
+      {"id": "t2", "tenant": "other", "amount": 100, "expect": "reserved"},
+      {"id": "t3", "unit": "minor:EUR", "amount": 100, "expect": "reserved"},
+      {"id": "t4", "amount": 1, "expect": "DENY"}
+    ]},
+    {"id": "EXP-006", "name": "invalid-amount-rejected", "steps": [
+      {"id": "a", "amount": -1, "expect": "DENY"},
+      {"id": "b", "amount": 1.5, "expect": "DENY"},
+      {"id": "c", "amount": true, "expect": "DENY"}
+    ]},
+    {"id": "EXP-007", "name": "pending-rolls-out-of-window", "steps": [
+      {"id": "old", "amount": 90, "expect": "reserved"},
+      {"id": "new", "amount": 100, "now": 5000, "expect": "reserved"}
+    ]}
+  ]
+}
