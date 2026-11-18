@@ -27,6 +27,8 @@ jobs:
         run: python conformance/test_run_conformance.py
       - name: Verify public reference adapter
         run: python reference/test_adapter.py
+      - name: Verify optional cumulative exposure reference
+        run: python reference/test_exposure.py
       - name: Run v0.2.0 reference conformance
         run: |
           python conformance/run_conformance.py \
