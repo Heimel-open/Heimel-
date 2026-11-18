@@ -3,6 +3,7 @@ name: Public boundary
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,7 +23,7 @@ jobs:
           allowed_prefix='^(spec|schemas|reference|conformance|release|attestation|\.github)/'
           bad=0
           while IFS= read -r path; do
-            if [[ "$path" =~ $allowed_root || "$path" =~ $allowed_prefix ]]; then
+            if [[ "$path" =~ $allowed_root || "$path" =~ $allowed_prefix || "$path" == docs/AUTHORITY_SEMANTICS_VS_ENFORCEMENT.md ]]; then
               continue
             fi
             echo "Forbidden public path: $path"

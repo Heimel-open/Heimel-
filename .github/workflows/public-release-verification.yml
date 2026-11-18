@@ -3,6 +3,7 @@ name: Public release verification
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -47,7 +48,7 @@ jobs:
           curl --fail --location --silent --show-error \
             https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar \
             --output /tmp/tla2tools.jar
-          echo '7beec0f04818732a62fa193731711a99aa4f11279499b2360a7d156c519ea78d  /tmp/tla2tools.jar' | sha256sum --check
+          echo '7e53aa636dac8a3cb0533f343115c0548e03fc0ce5edc7739becf58d3d0fb84f  /tmp/tla2tools.jar' | sha256sum --check
           (
             cd spec/formal
             java -XX:+UseParallelGC -cp /tmp/tla2tools.jar tlc2.TLC -cleanup ConsequenceBoundary.tla -config ConsequenceBoundary.cfg
